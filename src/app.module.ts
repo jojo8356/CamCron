@@ -7,6 +7,8 @@ import { JobModule } from './job/job.module.js';
 import { TemplateModule } from './template/template.module.js';
 import { SchedulerModule } from './scheduler/scheduler.module.js';
 import { ProcessModule } from './process/process.module.js';
+import { SystemModule } from './system/system.module.js';
+import { EventsModule } from './events/events.module.js';
 
 @Module({
   imports: [
@@ -18,6 +20,8 @@ import { ProcessModule } from './process/process.module.js';
     JobModule,
     ProcessModule,
     SchedulerModule,
+    SystemModule,
+    EventsModule,
   ],
 })
 export class AppModule {}
