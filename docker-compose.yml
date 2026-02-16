@@ -1,0 +1,15 @@
+services:
+  camcron:
+    build: .
+    container_name: camcron
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - camcron-data:/data/camcron
+      - ./config.json:/app/config.json:ro
+    environment:
+      - NODE_ENV=production
+
+volumes:
+  camcron-data:

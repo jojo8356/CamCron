@@ -1,0 +1,80 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model Camera {
+  id        String   @id @default(uuid())
+  name      String
+  protocol  String   @default("rtsp")
+  streams   String   // JSON: { main: "rtsp://...", sub: "rtsp://..." }
+  username  String?
+  password  String?
+  tags      String?  // JSON array: ["extérieur", "garage"]
+  location  String?
+  model     String?
+  enabled   Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  jobs Job[]
+}
+
+model Job {
+  id            String   @id @default(uuid())
+  name          String
+  cameraId      String
+  streamKey     String   @default("main")
+  action        String   // record | snapshot | timelapse | detect_motion | test_connection | custom_command
+  triggerType   String   @default("continuous") // continuous | oneshot | fixed_duration
+  cron          String   // cron expression
+  cronStop      String?  // cron expression for stop (continuous jobs)
+  duration      Int?     // duration in seconds (fixed_duration jobs)
+  periodStart   String?  // calendar period start date
+  periodEnd     String?  // calendar period end date
+  periodRecurrent Boolean @default(false)
+  outputDir     String   // template path with {variables}
+  filePattern   String   @default("{cameraName}_{timestamp}")
+  outputFormat  String   @default("mp4")
+  segmentDuration Int?   // in seconds
+  codec         String?  @default("copy")
+  resolution    String?
+  quality       Int?
+  extraArgs     String?  // JSON array: ["-rtsp_transport", "tcp"]
+  customCommand String?  // for custom_command action
+  commandTimeout Int?    // in seconds
+  retentionDays Int?
+  retentionMaxGB Float?
+  maxRetries    Int      @default(3)
+  priority      Int      @default(0)
+  enabled       Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  camera Camera @relation(fields: [cameraId], references: [id], onDelete: Cascade)
+
+  executions JobExecution[]
+}
+
+model JobExecution {
+  id        String   @id @default(uuid())
+  jobId     String
+  startedAt DateTime @default(now())
+  stoppedAt DateTime?
+  status    String   // running | completed | error | killed
+  exitCode  Int?
+  error     String?
+  filesProduced Int @default(0)
+  bytesProduced BigInt @default(0)
+
+  job Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
+}
+
+model AppSetting {
+  key   String @id
+  value String // JSON value
+}
