@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CommandBuilderService } from './command-builder.service.js';
-import type { Job, Camera } from '../../generated/prisma/client.js';
+import type { Job, Camera } from '../generated/prisma/client.js';
 
 describe('CommandBuilderService', () => {
   let service: CommandBuilderService;

@@ -13,7 +13,7 @@ import { ProcessSupervisorService } from '../process/process-supervisor.service.
 import { SchedulerService } from '../scheduler/scheduler.service.js';
 import { CreateJobDto } from './dto/create-job.dto.js';
 import { UpdateJobDto } from './dto/update-job.dto.js';
-import type { Job, Camera } from '../../generated/prisma/client.js';
+import type { Job, Camera } from '../generated/prisma/client.js';
 
 @Controller('jobs')
 export class JobController {

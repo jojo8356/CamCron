@@ -1,7 +1,7 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { DateTime } from 'luxon';
 import { CronExpressionParser } from 'cron-parser';
-import type { Job } from '../../generated/prisma/client.js';
+import type { Job } from '../generated/prisma/client.js';
 
 @Injectable()
 export class SchedulerService {

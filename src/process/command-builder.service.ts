@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DateTime } from 'luxon';
-import type { Job, Camera } from '../../generated/prisma/client.js';
+import type { Job, Camera } from '../generated/prisma/client.js';
 import { ActionType } from '../common/enums.js';
 
 export interface CommandSpec {

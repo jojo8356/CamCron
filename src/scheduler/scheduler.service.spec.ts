@@ -1,7 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DateTime } from 'luxon';
 import { SchedulerService } from './scheduler.service.js';
-import type { Job } from '../../generated/prisma/client.js';
+import type { Job } from '../generated/prisma/client.js';
 
 describe('SchedulerService', () => {
   let service: SchedulerService;

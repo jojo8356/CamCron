@@ -3,7 +3,7 @@ import { EventEmitter2 } from '@nestjs/event-emitter';
 import { DateTime } from 'luxon';
 import { spawn } from 'node:child_process';
 import type { ChildProcess } from 'node:child_process';
-import type { Job, Camera } from '../../generated/prisma/client.js';
+import type { Job, Camera } from '../generated/prisma/client.js';
 import { CommandBuilderService } from './command-builder.service.js';
 import { TemplateService } from '../template/template.service.js';
 import { JobService } from '../job/job.service.js';

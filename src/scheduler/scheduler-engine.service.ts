@@ -1,9 +1,9 @@
-import { Injectable, Logger, OnModuleInit, OnModuleDestroy } from '@nestjs/common';
+import { Injectable, Logger, OnModuleInit, OnModuleDestroy, Inject, forwardRef } from '@nestjs/common';
 import { DateTime } from 'luxon';
 import { JobService } from '../job/job.service.js';
 import { SchedulerService } from './scheduler.service.js';
 import { ProcessSupervisorService } from '../process/process-supervisor.service.js';
-import type { Job, Camera } from '../../generated/prisma/client.js';
+import type { Job, Camera } from '../generated/prisma/client.js';
 
 @Injectable()
 export class SchedulerEngineService implements OnModuleInit, OnModuleDestroy {
@@ -12,6 +12,7 @@ export class SchedulerEngineService implements OnModuleInit, OnModuleDestroy {
   private readonly TICK_INTERVAL_MS = 30_000; // 30 seconds
 
   constructor(
+    @Inject(forwardRef(() => JobService))
     private readonly jobService: JobService,
     private readonly schedulerService: SchedulerService,
     private readonly processSupervisor: ProcessSupervisorService,
